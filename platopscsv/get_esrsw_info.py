@@ -43,26 +43,28 @@ def get_sw_info(csv_file, esr_sw, eth_sw_header, eth_swp_header):
     for rk in file_csv_to_dict:
         rk_position = "rack_position"
         eth_swp = eth_swp_header
-        rack = { rk[rk_position]: rk[eth_swp]}
+        rack = {rk[rk_position]: rk[eth_swp]}
         rack_dict.update(rack)
 
     # Reading from file and create another file
-    with open(tmp, 'r') as tmp_file:
-        response = os.popen(f'cat {tmp} | awk '"'{print $1, $2}'"f' | tail -n +2')
-
+    with open(tmp, 'r') as tmp_file:        
         # Merge to single dictionary in a list
         eth_dict = {}
         if 'Ethernet' in port_desc: # For Arista switches   
+            response = os.popen(f'cat {tmp} | awk '"'{print $1, $2}'"f' | tail -n +2')
             for r in response:
                 o = r.split()
                 orig_dict = convert(o)
                 corrected_dict = {k.replace('Et', 'Ethernet'): v for k, v in orig_dict.items()}
                 eth_dict.update(corrected_dict)
-        else: # For Juniper switches
+        elif 'xe' in port_desc: # For Juniper switches
+            response = os.popen(f'cat {tmp} | awk '"'{print $1, $2}'"f' | tail -n +1')
             for r in response:
                 o = r.split()
                 orig_dict = convert(o)
                 eth_dict.update(orig_dict)
+        else:
+            print("- FAILED: Unknown port description!")
         
         rk_eth_dict = {}
         for rk_k, rk_v in rack_dict.items():

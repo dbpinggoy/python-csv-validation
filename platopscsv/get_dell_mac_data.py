@@ -14,6 +14,7 @@ from .utils import convert
 
 def get_mac_address(idrac_ip,idrac_username,idrac_password):
     mac_address = 'PermanentMACAddress'
+    link_status = 'LinkStatus'
     response = requests.get('https://%s/redfish/v1/Systems/System.Embedded.1/EthernetInterfaces' % idrac_ip,verify=False,auth=(idrac_username, idrac_password))
     data = response.json()
     nic_fqdds = []
@@ -25,13 +26,12 @@ def get_mac_address(idrac_ip,idrac_username,idrac_password):
     for i in sorted(nic_fqdds):
         response = requests.get('https://%s/redfish/v1/Systems/System.Embedded.1/EthernetInterfaces/%s' % (idrac_ip, i),verify=False,auth=(idrac_username, idrac_password))
         data = response.json()
-        if mac_address in data.keys():
-            if data[mac_address] != "":
+        if mac_address in data.keys() and link_status in data.keys():
+            if data[mac_address] != "" and data[link_status] == "LinkUp":
                 # print("%s: %s" % (i, data[mac_address]))
                 macs.append((i, data[mac_address]))
             # else:
             #     print("- WARNING, unable to locate property \"%s\". Either spelling of property is incorrect or property not supported for %s" % (ii, i))
-   
     mac_dict = dict()
     # mac_list = []
     for index, mac in enumerate(macs):
