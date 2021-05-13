@@ -79,8 +79,4 @@ def get_sw_info(csv_file, esr_sw, eth_sw_header, eth_swp_header):
     with open(f'{eth_sw_file}.txt', 'w') as eth_file:
         eth_file.write(str(rk_eth_dict))
 
- 
-# get_esrSw_info(csv_file, esr_sw, eth_sw_header, eth_swp_header)
-# get_esrSw_info("rk09.p01.fr2.24-30_enrollment_data.csv", "esr1a.rk09.p01.fr2.packet.net", "eth0_switch", "eth0_switchport")
 
-# Getting the rack postion definition

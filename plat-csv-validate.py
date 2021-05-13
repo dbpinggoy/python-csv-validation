@@ -5,7 +5,6 @@ import os, argparse
 
 
 # Local application imports
-# from platopscsv.read_csv import get_columns as gc
 from platopscsv.filter_esrsw_info import filter_ethsw_and_ethswp as filter_esrsw
 from platopscsv.filter_bmcsw_info import filter_bmcsw_and_bmcswp as filter_bmcsw
 
@@ -28,8 +27,6 @@ else:
 if __name__ == "__main__":
     print("[* Welcome to CSV Validation *]") 
     print("[*] Press CTRL-C to QUIT")
-    # Change it to required value(in sec) 
-    # stitle = get_arguments()
     try:
         # Delete any txt files if exists
         dir_name = os.getcwd()

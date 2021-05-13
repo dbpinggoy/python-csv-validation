@@ -31,5 +31,3 @@ def get_csv_to_dict(csv_file):
             record = dict(zip(headers, row))
             records.append(record)
     return records
-
-# get_single_column("AMS1-PLATOPS-1215-03112021-n2.xlarge.x86v1 - r03b01-c312h.csv", "eth0_mac")
