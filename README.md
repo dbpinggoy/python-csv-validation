@@ -33,4 +33,4 @@ git@github.com:packethost/platops-csv-validation.git
 ```sh
     python3 plat-csv-validate.py -f "/path/file.csv" -v vendor
 ```
-The vendor it could be `dell`, this is still work in progress so and we'll add more vendor along the way.
+The vendor it could be `dell` this is still work in progress so we'll add more vendor along the way.
