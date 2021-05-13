@@ -151,8 +151,8 @@ def validate_mac(csv_file, bmc_sw, bmc_user, bmc_mac):
                     for k, v in setinter:
                         mapped_data.append([
                             x['rack_position'], k1, f'{k}', f'{v}',
-                            Fore.GREEN + '✔ [match]' + Style.RESET_ALL])
-    print(tabulate(mapped_data, table_headers, tablefmt="pretty"))
+                            Fore.GREEN + '✔ [match]' + Style.RESET_ALL])                       
+    print(tabulate(sorted(mapped_data), table_headers, tablefmt="pretty"))
             
        
         

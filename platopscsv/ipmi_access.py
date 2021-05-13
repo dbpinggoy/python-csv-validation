@@ -53,5 +53,4 @@ def access_test(csv_file, bmc_sw, bmc_user):
                         mapped_data.append([rk_key, rk_val, ipmi_server, ipmi_user, ipmi_password, Fore.GREEN + '✔ [success]' + Style.RESET_ALL])
                     else:
                         mapped_data.append([rk_key, rk_val, ipmi_server, ipmi_user, ipmi_password, Fore.RED + '✘ [failed]' + Style.RESET_ALL])
-
-    print(tabulate(mapped_data, table_headers, tablefmt="pretty"))
+    print(tabulate(sorted(mapped_data), table_headers, tablefmt="pretty"))

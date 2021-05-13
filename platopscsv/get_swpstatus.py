@@ -38,4 +38,4 @@ def get_swp_status(csv_file, sw, sw_header, swp_header):
                                 Fore.LIGHTYELLOW_EX + sw + Style.RESET_ALL,
                                 Fore.LIGHTYELLOW_EX + port + Style.RESET_ALL,                            
                                 Fore.RED + '✘ [down]' + Style.RESET_ALL])
-    print(tabulate(mapped_data, table_headers, tablefmt="pretty"))
+    print(tabulate(sorted(mapped_data), table_headers, tablefmt="pretty"))
