@@ -8,7 +8,6 @@ from .ipmi_access import access_test as access
 from .get_dell_mac_data import validate_mac as val_mac_data, get_mac_data as get_eth_mac
 
 
-
 def filter_bmcsw_and_bmcswp(csv_file, vendor):
     all_header_list = gh(csv_file)
 
@@ -66,6 +65,3 @@ def filter_bmcsw_and_bmcswp(csv_file, vendor):
             print("Required in the CSV file: bmc_username and bmc_password")
             exit()     
 
-
-# filter_bmcSw_and_bmcSwp("rk09.p01.fr2.24-30_enrollment_data.csv")
-# filter_bmcsw_and_bmcswp("DA11-PLATOPS-978-01122021-n2.xlarge.x86v1 - RK30.csv")

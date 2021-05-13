@@ -8,12 +8,9 @@ import os, argparse
 from platopscsv.filter_esrsw_info import filter_ethsw_and_ethswp as filter_esrsw
 from platopscsv.filter_bmcsw_info import filter_bmcsw_and_bmcswp as filter_bmcsw
 
-
 parser = argparse.ArgumentParser(description='Python script to validate the CSV enrollment data')
 parser.add_argument('-f', help='CSV filename', required=True)
 parser.add_argument('-v', help='Server vendor like dell, smc', required=False)
-# parser.add_argument('-s', help='Get specific FQDD property for all ethernet devices, pass in property name. To get the list of property names, first execute \"-e yy\" to get detailed information which will return the property values. Make sure to pass in the exact string as this value is case sensitive. Note: Multiple properties can be passed in by using a comma separator', required=False)
-
 args = vars(parser.parse_args())
 
 if args["f"]:
