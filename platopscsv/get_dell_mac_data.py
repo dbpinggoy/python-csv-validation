@@ -12,19 +12,6 @@ warnings.filterwarnings("ignore")
 from .read_csv import get_columns as gc, get_header as gh, get_csv_to_dict as gcsv_dict
 from .utils import convert
 
-def is_vendor_dell(csv_file):
-
-    # Getting the rack postion definition
-    file_csv_to_dict = gcsv_dict(csv_file)
-
-    user_pass_dict = {}
-    for user_pass in file_csv_to_dict:
-        bmc_user = "bmc_username"
-        bmc_pass = "bmc_password"
-        rack = { user_pass[bmc_user]: user_pass[bmc_pass]}
-        user_pass_dict.update(rack)
-    return user_pass_dict
-
 def get_mac_address(idrac_ip,idrac_username,idrac_password):
     mac_address = 'PermanentMACAddress'
     link_status = 'LinkStatus'

@@ -57,13 +57,13 @@ def filter_bmcsw_and_bmcswp(csv_file, vendor):
 
             # Get vendor and match mac address
             check_vendor = is_vendor(csv_file)
-            
             if vendor == "dell":
-                if check_vendor.keys == 'root' and check_vendor.values == 'calvin':
-                    get_eth_mac(csv_file, bmc_sw, bmc_user_hdr)
-                    val_mac_data(csv_file, bmc_sw, bmc_user_hdr, bmc_mac_hdr)
-                else:
-                    print("\n - FAILED: Your server vendor is not Dell!") 
+                for bmc_user, bmc_pass in check_vendor.items():
+                    if bmc_user == 'root' and bmc_pass == 'calvin':
+                        get_eth_mac(csv_file, bmc_sw, bmc_user_hdr)
+                        val_mac_data(csv_file, bmc_sw, bmc_user_hdr, bmc_mac_hdr)
+                    else:
+                        print("\n - FAILED: Your server vendor is not Dell!") 
             else:
                 print("The vendor provided is not define")
         else:
