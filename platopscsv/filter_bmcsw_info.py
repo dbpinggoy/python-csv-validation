@@ -6,7 +6,7 @@ from .get_bmcsw_info import get_bmcsw_info as get_bmc_sw
 from .get_bmcsw_creds import get_bmc_creds as gen_bmc_creds
 from .ipmi_access import access_test as access
 from .get_dell_mac_data import validate_mac as val_mac_data, get_mac_data as get_eth_mac
-
+from .utils import is_vendor
 
 def filter_bmcsw_and_bmcswp(csv_file, vendor):
     all_header_list = gh(csv_file)
@@ -55,10 +55,15 @@ def filter_bmcsw_and_bmcswp(csv_file, vendor):
             # Test server access with IPMI
             access(csv_file, bmc_sw, bmc_user_hdr)
 
-            # Get dell mac data
+            # Get vendor and match mac address
+            check_vendor = is_vendor(csv_file)
+            
             if vendor == "dell":
-                get_eth_mac(csv_file, bmc_sw, bmc_user_hdr)
-                val_mac_data(csv_file, bmc_sw, bmc_user_hdr, bmc_mac_hdr) 
+                if check_vendor.keys == 'root' and check_vendor.values == 'calvin':
+                    get_eth_mac(csv_file, bmc_sw, bmc_user_hdr)
+                    val_mac_data(csv_file, bmc_sw, bmc_user_hdr, bmc_mac_hdr)
+                else:
+                    print("\n - FAILED: Your server vendor is not Dell!") 
             else:
                 print("The vendor provided is not define")
         else:
