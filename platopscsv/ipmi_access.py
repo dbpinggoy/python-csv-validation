@@ -8,6 +8,7 @@ from colorama import Fore, Back, Style
 
 # Local application imports
 from .read_csv import get_columns as gc, get_csv_to_dict as gcsv_dict
+from .utils import sort_table
 
 
 def access_test(csv_file, bmc_sw, bmc_user):
@@ -27,7 +28,7 @@ def access_test(csv_file, bmc_sw, bmc_user):
     print("\n - IPMI access testing...")
     table_headers = ["Rack Position", "BMC MAC", "BMC IP", "BMC User", "BMC Password", "Remarks"]
     mapped_data = []
-
+    table_sorted = []
     with open(filepath) as bmc_creds:
         # Getting the rack position
         rack_dict = {}
@@ -50,7 +51,10 @@ def access_test(csv_file, bmc_sw, bmc_user):
             for rk_key, rk_val in rack_dict.items():
                 if rk_val == values[0]:
                     if (output == 0):
-                        mapped_data.append([rk_key, rk_val, ipmi_server, ipmi_user, ipmi_password, Fore.GREEN + '✔ [success]' + Style.RESET_ALL])
+                        mapped_data.append([rk_key, rk_key, rk_val, ipmi_server, ipmi_user, ipmi_password, Fore.GREEN + '✔ [success]' + Style.RESET_ALL])
                     else:
-                        mapped_data.append([rk_key, rk_val, ipmi_server, ipmi_user, ipmi_password, Fore.RED + '✘ [failed]' + Style.RESET_ALL])
-    print(tabulate(sorted(mapped_data), table_headers, tablefmt="pretty"))
+                        mapped_data.append([rk_key, rk_key, rk_val, ipmi_server, ipmi_user, ipmi_password, Fore.RED + '✘ [failed]' + Style.RESET_ALL])
+    
+    for row in sort_table(mapped_data, 0):
+        table_sorted.append(row[1:]) 
+    print(tabulate(table_sorted, table_headers, tablefmt="pretty"))

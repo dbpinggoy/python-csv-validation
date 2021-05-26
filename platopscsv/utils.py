@@ -24,3 +24,6 @@ def is_vendor(csv_file):
         rack = { user_pass[bmc_user]: user_pass[bmc_pass]}
         user_pass_dict.update(rack)
     return user_pass_dict
+
+def sort_table(table, col):
+    return sorted(table, key=lambda k: int(k[col]))

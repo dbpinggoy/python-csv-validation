@@ -10,7 +10,7 @@ warnings.filterwarnings("ignore")
 
 # Local application imports
 from .read_csv import get_columns as gc, get_header as gh, get_csv_to_dict as gcsv_dict
-from .utils import convert
+from .utils import convert, sort_table
 
 def get_mac_address(idrac_ip,idrac_username,idrac_password):
     mac_address = 'PermanentMACAddress'
@@ -130,6 +130,7 @@ def validate_mac(csv_file, bmc_sw, bmc_user, bmc_mac):
     print("\n - Matching MAC address from csv to the server...")
     table_headers = ["Rack Position", "BMC MAC", "Ethernet", "Ethernet MAC", "Remarks"]
     mapped_data = []
+    table_sorted = []
     for k1 in data.keys():
         for p1 in data[k1]:
             for k2 in keydict.keys():
@@ -144,15 +145,21 @@ def validate_mac(csv_file, bmc_sw, bmc_user, bmc_mac):
                     setdiff = dictb_set.difference(dicta_set)
                     for k, v in setdiff:
                         mapped_data.append([
+                            x['rack_position'],
                             Fore.LIGHTYELLOW_EX + x['rack_position'] + Style.RESET_ALL,
                             Fore.LIGHTYELLOW_EX + k1 + Style.RESET_ALL,
                             Fore.LIGHTYELLOW_EX + f'{k}', f'{v}' + Style.RESET_ALL,
                             Fore.RED + '✘ [not match]' + Style.RESET_ALL])
                     for k, v in setinter:
                         mapped_data.append([
+                            x['rack_position'],
                             x['rack_position'], k1, f'{k}', f'{v}',
-                            Fore.GREEN + '✔ [match]' + Style.RESET_ALL])                       
-    print(tabulate(sorted(mapped_data), table_headers, tablefmt="pretty"))
+                            Fore.GREEN + '✔ [match]' + Style.RESET_ALL])    
+
+    for row in sort_table(mapped_data, 0):
+        table_sorted.append(row[1:])   
+                                               
+    print(tabulate(table_sorted, table_headers, tablefmt="pretty"))
             
        
         
