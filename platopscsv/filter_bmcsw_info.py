@@ -59,7 +59,7 @@ def filter_bmcsw_and_bmcswp(csv_file, vendor):
             check_vendor = is_vendor(csv_file)
             if vendor == "dell":
                 for bmc_user, bmc_pass in check_vendor.items():
-                    if bmc_user == 'root' and bmc_pass == 'calvin':
+                    if bmc_user == 'root':
                         get_eth_mac(csv_file, bmc_sw, bmc_user_hdr)
                         val_mac_data(csv_file, bmc_sw, bmc_user_hdr, bmc_mac_hdr)
                     else:
